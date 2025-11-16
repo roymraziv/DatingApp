@@ -1,0 +1,28 @@
+[Unit]
+Description=Dating App .NET Service
+After=network.target mssql-server.service
+Requires=network.target
+
+[Service]
+Type=notify
+WorkingDirectory=/home/ubuntu/dating-app
+ExecStart=/home/ubuntu/.dotnet/dotnet /home/ubuntu/dating-app/API.dll
+Restart=always
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dating-app
+User=ubuntu
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_ROOT=/home/ubuntu/.dotnet
+Environment=ASPNETCORE_URLS=http://0.0.0.0:5000
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
