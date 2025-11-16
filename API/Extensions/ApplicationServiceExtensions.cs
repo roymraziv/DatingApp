@@ -5,6 +5,7 @@ using API.Interfaces;
 using API.Services;
 using API.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace API.Extensions;
 
@@ -26,7 +27,13 @@ public static class ApplicationServiceExtensions
         // PostgreSQL (Production)
         services.AddDbContext<DataContext>(opt =>
         {
-            opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+            opt.UseNpgsql(config.GetConnectionString("DefaultConnection"), npgsql =>
+            {
+                npgsql.EnableRetryOnFailure();
+            });
+            // Suppress pending model changes warning at startup so migrations
+            // don't throw when the model differs between build-time and runtime.
+            opt.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
         });
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         services.AddOpenApi();

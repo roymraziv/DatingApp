@@ -60,7 +60,7 @@ sudo -u ubuntu mkdir -p /home/ubuntu/dating-app
 4. Click **"Create static IP"**
    - Name: `dating-app-ip`
    - Click **"Create"**
-5. **Write down your IP**: `___.___.___.___`
+  5. **Write down your IP**: `52.201.129.184`
 
 ---
 
@@ -74,7 +74,7 @@ sudo -u ubuntu mkdir -p /home/ubuntu/dating-app
 # Setup PostgreSQL database and user
 sudo -u postgres psql << 'SQLEOF'
 CREATE DATABASE datingdb;
-CREATE USER datingapp WITH ENCRYPTED PASSWORD 'DatingApp2024!Strong';
+CREATE USER datingapp WITH ENCRYPTED PASSWORD 'DatingAPP4!';
 GRANT ALL PRIVILEGES ON DATABASE datingdb TO datingapp;
 \c datingdb
 GRANT ALL ON SCHEMA public TO datingapp;
@@ -86,7 +86,7 @@ echo ""
 echo "✓ PostgreSQL setup complete!"
 echo "Database: datingdb"
 echo "Username: datingapp"
-echo "Password: DatingApp2024!Strong"
+echo "Password: DatingAPP4!"
 echo ""
 echo "IMPORTANT: Save this password!"
 ```
@@ -112,14 +112,14 @@ cat > ~/config-template.json << 'CONFIGEND'
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=datingdb;Username=datingapp;Password=DatingApp2024!Strong"
+    "DefaultConnection": "Host=localhost;Database=datingdb;Username=datingapp;Password=DatingAPP4!"
   },
   "CloudinarySettings": {
-    "CloudName": "CLOUDINARY_CLOUD_NAME_HERE",
-    "ApiKey": "CLOUDINARY_API_KEY_HERE",
-    "ApiSecret": "CLOUDINARY_API_SECRET_HERE"
+    "CloudName": "dbjenrybv",
+    "ApiKey": "127261982159317",
+    "ApiSecret": "1oMm_nm4tMBXrMJdGperndsaQLw"
   },
-  "TokenKey": "THIS_IS_A_TEMPORARY_PLACEHOLDER_TOKEN_KEY_REPLACE_WITH_A_REAL_SECURE_RANDOM_STRING_FOR_PRODUCTION_USE"
+  "TokenKey": "super secret unguessable key super secret unguessable key super secret unguessable key super secret unguessable key"
 }
 CONFIGEND
 
@@ -172,14 +172,14 @@ Replace `YOUR_IP` with your static IP:
 
 ```bash
 # Still in the publish directory
-scp -o StrictHostKeyChecking=no dating-app.tar.gz ubuntu@YOUR_IP:~/
+scp -o StrictHostKeyChecking=no dating-app.tar.gz ubuntu@52.201.129.184:~/
 ```
 
 If it asks about fingerprint, type `yes`
 
 If you need the SSH key:
-- Go to Lightsail → Account → SSH Keys → Download
-- Then use: `scp -i ~/Downloads/LightsailDefaultKey.pem dating-app.tar.gz ubuntu@YOUR_IP:~/`
+- Use the PEM key you store in your `~/.ssh` folder on macOS
+- Then use: `scp -i ~/.ssh/LightsailDefaultKey-us-east-1.pem dating-app.tar.gz ubuntu@52.201.129.184:~/`
 
 ---
 
@@ -204,12 +204,12 @@ After=network.target postgresql.service
 
 [Service]
 WorkingDirectory=/home/ubuntu/dating-app
-ExecStart=/home/ubuntu/.dotnet/dotnet /home/ubuntu/dating-app/API.dll
+ExecStart=/usr/bin/dotnet /home/ubuntu/dating-app/API.dll
 Restart=always
 RestartSec=10
 User=ubuntu
 Environment=ASPNETCORE_ENVIRONMENT=Production
-Environment=DOTNET_ROOT=/home/ubuntu/.dotnet
+Environment=DOTNET_ROOT=/usr/share/dotnet
 Environment=ASPNETCORE_URLS=http://0.0.0.0:5000
 
 [Install]
