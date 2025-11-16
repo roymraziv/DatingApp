@@ -2,11 +2,99 @@
     <div style="text-align: center;">
 
         @if(!registerMode){
-            <h1>Find your match</h1>
-            <p class="lead">Come on in to view your matches... all you need to do is sign up!</p>
-            <div class="text-center">
-                <button (click)="registerToggle()" class="btn btn-primary btn-lg me-2">Register</button>
-                <button class="btn btn-info btn-lg me-2">Learn more</button>
+            <h1 class="display-3 fw-bold mb-4">Find Your Perfect Match</h1>
+            <p class="lead fs-4 mb-4">Welcome to Roy's .NET Dating - Where Technology Meets Romance</p>
+
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8">
+                    <p class="text-muted fs-5">
+                        Built with the power of .NET and Angular, our platform connects singles
+                        looking for meaningful relationships. Whether you're seeking friendship,
+                        romance, or a life partner, you're in the right place.
+                    </p>
+                </div>
+            </div>
+
+            <div class="row text-start mb-5">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title text-primary">
+                                <i class="bi bi-heart-fill"></i> Smart Matching
+                            </h3>
+                            <p class="card-text">
+                                Our advanced algorithm helps you discover compatible matches based on
+                                your interests, preferences, and what matters most to you.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title text-primary">
+                                <i class="bi bi-chat-dots-fill"></i> Real-Time Messaging
+                            </h3>
+                            <p class="card-text">
+                                Connect instantly with matches through our real-time messaging system.
+                                Start conversations and build connections effortlessly.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title text-primary">
+                                <i class="bi bi-shield-check"></i> Safe & Secure
+                            </h3>
+                            <p class="card-text">
+                                Your privacy and security are our top priorities. We use industry-leading
+                                encryption and moderation tools to keep you safe.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-8">
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">Ready to Start Your Journey?</h4>
+                        <p class="mb-0">
+                            Join thousands of singles who have found meaningful connections.
+                            Create your profile in minutes and start browsing matches today!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mb-5">
+                <button (click)="registerToggle()" class="btn btn-primary btn-lg me-2 px-5 py-3">
+                    <i class="bi bi-person-plus-fill"></i> Register Now
+                </button>
+                <button class="btn btn-outline-primary btn-lg px-5 py-3">
+                    <i class="bi bi-info-circle-fill"></i> Learn More
+                </button>
+            </div>
+
+            <div class="row text-center mt-5 pt-5 border-top">
+                <div class="col-md-3 mb-3">
+                    <h2 class="text-primary fw-bold">10,000+</h2>
+                    <p class="text-muted">Active Members</p>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h2 class="text-primary fw-bold">5,000+</h2>
+                    <p class="text-muted">Matches Made</p>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h2 class="text-primary fw-bold">500+</h2>
+                    <p class="text-muted">Success Stories</p>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <h2 class="text-primary fw-bold">4.8/5</h2>
+                    <p class="text-muted">User Rating</p>
+                </div>
             </div>
         }  @else {
             <div class="container">
