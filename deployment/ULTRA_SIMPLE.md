@@ -2,7 +2,7 @@
 
 **Minimal steps. Maximum simplicity. No CLI tools needed.**
 
-**Time**: 45 minutes | **Cost**: $3.50/month
+**Time**: 30 minutes | **Cost**: $3.50/month
 
 ---
 
@@ -41,7 +41,7 @@ chmod +x dotnet-install.sh
 sudo -u ubuntu ./dotnet-install.sh --channel 9.0 --runtime aspnetcore --install-dir /home/ubuntu/.dotnet
 echo 'export DOTNET_ROOT=$HOME/.dotnet' >> /home/ubuntu/.bashrc
 echo 'export PATH=$PATH:$HOME/.dotnet' >> /home/ubuntu/.bashrc
-apt-get install -y nginx
+apt-get install -y nginx postgresql postgresql-contrib
 sudo -u ubuntu mkdir -p /home/ubuntu/dating-app
 ```
 
@@ -64,40 +64,36 @@ sudo -u ubuntu mkdir -p /home/ubuntu/dating-app
 
 ---
 
-## Step 2: Setup Database (10 minutes)
+## Step 2: Setup Database (5 minutes)
 
 1. Go to your instance page, click **"Connect using SSH"** (terminal icon)
 2. Browser terminal opens
 3. **Copy and paste this ENTIRE block** (one paste, press Enter):
 
 ```bash
-# Install SQL Server
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - && \
-sudo add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/22.04/mssql-server-2022.list)" -y && \
-sudo apt-get update && \
-sudo apt-get install -y mssql-server && \
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add - && \
-curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list && \
-sudo apt-get update && \
-ACCEPT_EULA=Y sudo apt-get install -y mssql-tools unixodbc-dev && \
-echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc && \
-source ~/.bashrc && \
-echo "SQL Server installed! Now run: sudo /opt/mssql/bin/mssql-conf setup"
+# Setup PostgreSQL database and user
+sudo -u postgres psql << 'SQLEOF'
+CREATE DATABASE datingdb;
+CREATE USER datingapp WITH ENCRYPTED PASSWORD 'DatingApp2024!Strong';
+GRANT ALL PRIVILEGES ON DATABASE datingdb TO datingapp;
+\c datingdb
+GRANT ALL ON SCHEMA public TO datingapp;
+ALTER DATABASE datingdb OWNER TO datingapp;
+\q
+SQLEOF
+
+echo ""
+echo "✓ PostgreSQL setup complete!"
+echo "Database: datingdb"
+echo "Username: datingapp"
+echo "Password: DatingApp2024!Strong"
+echo ""
+echo "IMPORTANT: Save this password!"
 ```
 
-4. After it completes, run:
+**SAVE THIS PASSWORD**: `DatingApp2024!Strong`
 
-```bash
-sudo /opt/mssql/bin/mssql-conf setup
-```
-
-5. When asked:
-   - Edition: Type **`2`** (Express) and press Enter
-   - License: Type **`Yes`** and press Enter
-   - Password: Type a strong password (e.g., `MyApp2024!Strong`)
-   - Confirm password: Type it again
-
-**SAVE THIS PASSWORD**: `___________________`
+(You can change this to your own password if you want - just remember it!)
 
 ---
 
@@ -116,7 +112,7 @@ cat > ~/config-template.json << 'CONFIGEND'
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=DatingDB;User Id=SA;Password=SQL_PASSWORD_HERE;TrustServerCertificate=True;Encrypt=False;"
+    "DefaultConnection": "Host=localhost;Database=datingdb;Username=datingapp;Password=DatingApp2024!Strong"
   },
   "CloudinarySettings": {
     "CloudName": "CLOUDINARY_CLOUD_NAME_HERE",
@@ -137,7 +133,7 @@ nano ~/config-template.json
 ```
 
 **Replace these values**:
-- `SQL_PASSWORD_HERE` → your SQL password from Step 2
+- `DatingApp2024!Strong` → your PostgreSQL password (if you changed it in Step 2)
 - `CLOUDINARY_CLOUD_NAME_HERE` → your Cloudinary cloud name
 - `CLOUDINARY_API_KEY_HERE` → your Cloudinary API key
 - `CLOUDINARY_API_SECRET_HERE` → your Cloudinary API secret
@@ -146,7 +142,7 @@ nano ~/config-template.json
 
 ---
 
-## Step 4: Build & Upload Your App (15 minutes)
+## Step 4: Build & Upload Your App (10 minutes)
 
 ### On Your Local Computer:
 
@@ -187,7 +183,7 @@ If you need the SSH key:
 
 ---
 
-## Step 5: Deploy Everything (10 minutes)
+## Step 5: Deploy Everything (5 minutes)
 
 Back in the **SSH terminal** (browser), paste this ENTIRE block:
 
@@ -204,7 +200,7 @@ chmod 600 ~/dating-app/appsettings.Production.json
 sudo tee /etc/systemd/system/dating-app.service > /dev/null << 'SERVICEEOF'
 [Unit]
 Description=Dating App Service
-After=network.target mssql-server.service
+After=network.target postgresql.service
 
 [Service]
 WorkingDirectory=/home/ubuntu/dating-app
@@ -300,19 +296,24 @@ sudo journalctl -u dating-app -n 50
 ### Database errors?
 
 ```bash
-# Check SQL Server
-sudo systemctl status mssql-server
+# Check PostgreSQL
+sudo systemctl status postgresql
 
 # If not running, start it
-sudo systemctl restart mssql-server
+sudo systemctl restart postgresql
+
+# Test database connection
+psql -h localhost -U datingapp -d datingdb
+# Enter password when prompted
+# Type \q to exit
 ```
 
 ### Fix and restart:
 
 ```bash
 # Restart everything
-sudo systemctl restart mssql-server
-sleep 5
+sudo systemctl restart postgresql
+sleep 2
 sudo systemctl restart dating-app
 sudo systemctl restart nginx
 
@@ -361,19 +362,33 @@ sudo systemctl restart dating-app
 sudo journalctl -u dating-app -f
 
 # Check what's running
-sudo systemctl status dating-app mssql-server nginx
+sudo systemctl status dating-app postgresql nginx
 
 # See resource usage
 htop
+
+# Access database
+psql -h localhost -U datingapp -d datingdb
 ```
+
+---
+
+## Why PostgreSQL?
+
+✅ **Lighter weight** - Uses ~50MB RAM vs SQL Server's ~150MB
+✅ **Faster install** - 1 command vs 5+ for SQL Server
+✅ **Better for small instances** - Perfect for 512MB RAM
+✅ **Free & Open Source** - No licensing concerns
+✅ **Industry standard** - Great for portfolio projects
 
 ---
 
 ## Summary
 
-✅ **Total Time**: ~45 minutes
+✅ **Total Time**: ~30 minutes
 ✅ **Monthly Cost**: $3.50
 ✅ **Your App**: `http://YOUR_STATIC_IP`
+✅ **Database**: PostgreSQL (lightweight & efficient)
 
 All done through the web browser - no complex CLI tools needed!
 

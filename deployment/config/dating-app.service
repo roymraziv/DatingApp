@@ -1,6 +1,6 @@
 [Unit]
 Description=Dating App .NET Service
-After=network.target mssql-server.service
+After=network.target postgresql.service
 Requires=network.target
 
 [Service]

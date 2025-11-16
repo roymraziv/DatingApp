@@ -89,8 +89,8 @@ Your `dating-app.zip` will be in the `publish` folder.
    echo 'export DOTNET_ROOT=$HOME/.dotnet' >> /home/ubuntu/.bashrc
    echo 'export PATH=$PATH:$HOME/.dotnet' >> /home/ubuntu/.bashrc
 
-   # Install Nginx
-   apt-get install -y nginx
+   # Install Nginx and PostgreSQL
+   apt-get install -y nginx postgresql postgresql-contrib
 
    # Create app directory
    sudo -u ubuntu mkdir -p /home/ubuntu/dating-app
@@ -129,7 +129,7 @@ Your `dating-app.zip` will be in the `publish` folder.
 
 ---
 
-## Part 3: Install SQL Server (20 minutes)
+## Part 3: Setup PostgreSQL Database (10 minutes)
 
 ### Step 1: Connect via Browser SSH
 
@@ -137,50 +137,42 @@ Your `dating-app.zip` will be in the `publish` folder.
 2. Click the **"Connect using SSH"** button (looks like a terminal icon)
 3. A browser window opens - this is your terminal!
 
-### Step 2: One-Command SQL Server Setup
+### Step 2: Create Database and User
+
+PostgreSQL was installed automatically from the launch script. Now we just need to create the database and user.
 
 Copy and paste this entire block into the SSH terminal:
 
 ```bash
-# Import Microsoft GPG key
-wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+# Create database and user
+sudo -u postgres psql << 'SQLEOF'
+CREATE DATABASE datingdb;
+CREATE USER datingapp WITH ENCRYPTED PASSWORD 'DatingApp2024!Strong';
+GRANT ALL PRIVILEGES ON DATABASE datingdb TO datingapp;
+\c datingdb
+GRANT ALL ON SCHEMA public TO datingapp;
+ALTER DATABASE datingdb OWNER TO datingapp;
+\q
+SQLEOF
 
-# Add SQL Server repository
-sudo add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/22.04/mssql-server-2022.list)" -y
-
-# Install SQL Server
-sudo apt-get update
-sudo apt-get install -y mssql-server
-
-# Install SQL Server tools
-curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
-curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
-sudo apt-get update
-ACCEPT_EULA=Y sudo apt-get install -y mssql-tools unixodbc-dev
-
-echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
-source ~/.bashrc
+echo ""
+echo "✓ PostgreSQL setup complete!"
+echo "Database: datingdb"
+echo "Username: datingapp"
+echo "Password: DatingApp2024!Strong"
 ```
 
-Press Enter. Wait for it to complete (~5 minutes).
+**IMPORTANT: Write down this password!** `DatingApp2024!Strong`
 
-### Step 3: Configure SQL Server
+(You can change this to your own password in the script above if you want)
 
-Now run this command:
+### Why PostgreSQL?
 
-```bash
-sudo /opt/mssql/bin/mssql-conf setup
-```
-
-When prompted:
-1. Type **`2`** and press Enter (Express - free edition)
-2. Type **`Yes`** and press Enter (accept license)
-3. Enter a **strong password** (e.g., `MyApp2024!Secure`)
-4. Re-enter the same password
-
-**IMPORTANT: Write down this password!** `___________________`
-
-SQL Server will start automatically.
+✅ **Faster setup** - One simple command vs multiple steps
+✅ **Lighter weight** - Uses ~50MB RAM vs SQL Server's ~150MB
+✅ **Perfect for small instances** - Great for 512MB RAM
+✅ **Free & Open Source** - No licensing concerns
+✅ **Industry standard** - Excellent for portfolio projects
 
 ---
 
@@ -206,7 +198,7 @@ This opens a text editor. Paste this (replace the placeholders):
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=DatingDB;User Id=SA;Password=YOUR_SQL_PASSWORD_HERE;TrustServerCertificate=True;Encrypt=False;"
+    "DefaultConnection": "Host=localhost;Database=datingdb;Username=datingapp;Password=DatingApp2024!Strong"
   },
   "CloudinarySettings": {
     "CloudName": "YOUR_CLOUDINARY_CLOUD_NAME",
@@ -218,7 +210,7 @@ This opens a text editor. Paste this (replace the placeholders):
 ```
 
 **Replace**:
-- `YOUR_SQL_PASSWORD_HERE` - the SQL password you just created
+- `DatingApp2024!Strong` - your PostgreSQL password (if you changed it in Part 3)
 - `YOUR_CLOUDINARY_CLOUD_NAME` - from Cloudinary dashboard
 - `YOUR_CLOUDINARY_API_KEY` - from Cloudinary dashboard
 - `YOUR_CLOUDINARY_API_SECRET` - from Cloudinary dashboard
@@ -396,14 +388,21 @@ sudo journalctl -u dating-app -n 100
 
 ### Database connection errors?
 
-Check SQL Server:
+Check PostgreSQL:
 ```bash
-sudo systemctl status mssql-server
+sudo systemctl status postgresql
 ```
 
 If stopped, start it:
 ```bash
-sudo systemctl start mssql-server
+sudo systemctl start postgresql
+```
+
+Test database connection:
+```bash
+psql -h localhost -U datingapp -d datingdb
+# Enter password when prompted
+# Type \q to exit
 ```
 
 ### Still having issues?
@@ -508,11 +507,14 @@ sudo systemctl status dating-app
 # Restart nginx
 sudo systemctl restart nginx
 
-# Restart SQL Server
-sudo systemctl restart mssql-server
+# Restart PostgreSQL
+sudo systemctl restart postgresql
 
 # Check server resources
 htop
+
+# Access database
+psql -h localhost -U datingapp -d datingdb
 ```
 
 ---

@@ -14,17 +14,20 @@ public static class ApplicationServiceExtensions
     {
         services.AddControllers();
 
-        // services.AddDbContext<DataContext>(opt => 
+        // SQL Server (keep for reference)
+        // services.AddDbContext<DataContext>(opt =>
         // {
-        //     opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+        //     opt.UseSqlServer(config.GetConnectionString("DefaultConnection"), sqlOptions =>
+        //     {
+        //         sqlOptions.EnableRetryOnFailure();
+        //     });
         // });
-        services.AddDbContext<DataContext>(opt => 
-{
-    opt.UseSqlServer(config.GetConnectionString("DefaultConnection"), sqlOptions =>
+
+        // PostgreSQL (Production)
+        services.AddDbContext<DataContext>(opt =>
         {
-            sqlOptions.EnableRetryOnFailure();
+            opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
         });
-    });
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
         services.AddOpenApi();
 
