@@ -36,30 +36,59 @@ deployment/
 
 ### Choose Your Path:
 
-1. **First-time deployer?**
-   → Read [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
+**🌟 RECOMMENDED FOR MOST USERS:**
 
-2. **Experienced with deployments?**
+1. **Want the easiest way? (Web browser only, no CLI tools)**
+   → Start with [ULTRA_SIMPLE.md](ULTRA_SIMPLE.md) - Just copy/paste!
+
+2. **Prefer web interface with detailed steps?**
+   → Use [SIMPLE_WEB_DEPLOYMENT.md](SIMPLE_WEB_DEPLOYMENT.md)
+
+**For Advanced Users:**
+
+3. **Comfortable with command-line and want automation?**
+   → Use scripts and read [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
+
+4. **Experienced with deployments?**
    → Use [QUICK_START.md](QUICK_START.md)
 
-3. **Just want to update your app?**
+5. **Just want to update your app?**
    → Run scripts 1 and 3 only
 
 ---
 
 ## 📖 Documentation
 
+### [ULTRA_SIMPLE.md](ULTRA_SIMPLE.md) ⭐ RECOMMENDED
+**The easiest way to deploy** - No CLI tools needed!
+- Everything done through AWS web interface
+- Copy-paste commands into browser SSH
+- Minimal steps (5 main steps)
+- ~45 minutes total time
+- Perfect for beginners
+
+**Read this if**: You want the simplest, fastest deployment with minimal hassle.
+
+### [SIMPLE_WEB_DEPLOYMENT.md](SIMPLE_WEB_DEPLOYMENT.md)
+Web-based deployment with more details:
+- Uses AWS web console (no downloads)
+- Browser-based SSH terminal
+- Step-by-step with explanations
+- ~1 hour total time
+- Good for first-time deployers who want to understand each step
+
+**Read this if**: You prefer detailed explanations but still want to avoid complex CLI tools.
+
 ### [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md)
-Complete, detailed guide with:
+Complete, detailed guide using automation scripts:
 - Prerequisites checklist
-- AWS Lightsail setup (with screenshots descriptions)
-- Step-by-step server configuration
-- Application deployment
-- Troubleshooting guide
+- AWS Lightsail setup
+- Automated scripts for setup
+- Comprehensive troubleshooting
 - Maintenance procedures
 - Security best practices
 
-**Read this if**: It's your first deployment or you want comprehensive instructions.
+**Read this if**: You're comfortable with CLI and want automated deployment scripts.
 
 ### [QUICK_START.md](QUICK_START.md)
 Condensed reference for experienced users:
@@ -67,7 +96,7 @@ Condensed reference for experienced users:
 - Quick deployment checklist
 - Common commands
 
-**Read this if**: You've deployed before and just need a reminder.
+**Read this if**: You've deployed before and just need a quick reminder.
 
 ---
 
