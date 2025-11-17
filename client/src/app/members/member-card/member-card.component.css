@@ -1,45 +1,289 @@
-.card:hover img{
-    transform: scale(1.2, 1.2);
-    transition-duration: 500ms;
-    transition-timing-function: ease-out;
+/* Member Card Container */
+.member-card {
+    border-radius: 16px;
+    border: 2px solid transparent;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card img {
-    transform: scale(1.0, 1.0);
-    transition-duration: 500ms;
-    transition-timing-function: ease-out;
+.member-card:hover {
+    border-color: #14b8a6;
+    box-shadow: 0 12px 30px rgba(20, 184, 166, 0.25);
+    transform: translateY(-8px);
 }
 
+/* Image Wrapper */
 .card-img-wrapper {
     overflow: hidden;
     position: relative;
+    background: linear-gradient(135deg, #e0f2fe 0%, #cffafe 100%);
 }
 
+.card-img-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 70%
+    );
+    transform: rotate(45deg);
+    transition: all 0.6s;
+    z-index: 2;
+    opacity: 0;
+}
+
+.member-card:hover .card-img-wrapper::before {
+    opacity: 1;
+    animation: shine 1.5s ease-in-out;
+}
+
+@keyframes shine {
+    0% {
+        left: -50%;
+    }
+    100% {
+        left: 150%;
+    }
+}
+
+/* Card Image */
+.card img {
+    transform: scale(1.0);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: brightness(0.95);
+}
+
+.member-card:hover img {
+    transform: scale(1.15);
+    filter: brightness(1);
+}
+
+/* Image Overlay */
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.7) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.card-img-wrapper:hover .image-overlay {
+    opacity: 1;
+}
+
+/* Member Action Icons */
 .member-icons {
     position: absolute;
     bottom: -30%;
     left: 0;
     right: 0;
-    margin-right: auto;
-    margin-left: auto;
+    margin: 0 auto;
     opacity: 0;
+    z-index: 3;
+    padding: 0;
 }
 
 .card-img-wrapper:hover .member-icons {
-    bottom: 0;
+    bottom: 20px;
     opacity: 1;
 }
 
 .animate {
-    transition: all 0.3s ease-in-out;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes fa-blink {
-    0% {opacity: 1;}
-    100% {opacity: 0.4;}
+/* Action Buttons */
+.btn-action {
+    background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+    border: none;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.4);
+    cursor: pointer;
 }
 
-.is-online{
-    animation: fa-blink 1.5s linear infinite;
-    color: rgb(1, 189, 42);
+.btn-action:hover {
+    background: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 6px 20px rgba(20, 184, 166, 0.6);
+    color: white;
+}
+
+.btn-action:active {
+    transform: translateY(-1px) scale(1.05);
+}
+
+.btn-action i {
+    font-size: 1rem;
+}
+
+/* Card Body */
+.card-body {
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.member-card:hover .card-body {
+    background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+}
+
+/* Card Title */
+.card-title {
+    font-weight: 700;
+    color: #334155;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.member-name {
+    font-weight: 700;
+    background: linear-gradient(135deg, #0891b2 0%, #14b8a6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Online Badge */
+.online-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-radius: 50%;
+    color: white;
+    font-size: 0.6rem;
+    animation: pulse-online 2s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+}
+
+@keyframes pulse-online {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+}
+
+.online-badge i {
+    font-size: 0.5rem;
+}
+
+/* Liked Icon */
+.liked-icon {
+    color: #f43f5e;
+    animation: heartbeat 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(244, 63, 94, 0.3));
+}
+
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    10%, 30% {
+        transform: scale(0.9);
+    }
+    20%, 40% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    60% {
+        transform: scale(1);
+    }
+}
+
+/* Card Text */
+.card-text {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.card-text i {
+    color: #14b8a6;
+    font-size: 0.9rem;
+}
+
+/* List styling */
+.list-inline {
+    margin: 0;
+    padding: 0;
+}
+
+.list-inline-item {
+    margin: 0 0.4rem;
+}
+
+/* Loading state (optional for future) */
+.member-card.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .member-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .btn-action {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .member-card {
+        border-radius: 12px;
+    }
+
+    .btn-action {
+        width: 38px;
+        height: 38px;
+        font-size: 0.95rem;
+    }
+
+    .list-inline-item {
+        margin: 0 0.3rem;
+    }
+
+    .online-badge {
+        width: 24px;
+        height: 24px;
+    }
 }
