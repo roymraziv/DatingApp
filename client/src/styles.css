@@ -25,7 +25,7 @@ body {
 }
 
 .nav-tabs > li.open, .member-tabset > .nav-tabs > li:hover {
-  border-bottom: 4px solid #fbcdcf;
+  border-bottom: 4px solid #cffafe;
 }
 
 .member-tabset > .nav-tabs > li.open > a, .member-tabset > .nav-tabs > li:hover > a {
@@ -43,7 +43,7 @@ body {
 }
 
 .member-tabset > .nav-tabs > li.active {
-  border-bottom: 4px solid #E95420;
+  border-bottom: 4px solid #14b8a6;
   position: relative;
 }
 
@@ -68,11 +68,11 @@ body {
 .card {
   transition: all 0.3s ease;
   border-radius: 12px;
-  border: 1px solid #e9ecef;
+  border: 1px solid #e2e8f0;
 }
 
 .card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 25px rgba(20, 184, 166, 0.15);
 }
 
 /* Button Enhancements */
@@ -90,18 +90,19 @@ body {
 .navbar {
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, #14b8a6 0%, #0891b2 100%) !important;
 }
 
 /* Form Control Enhancements */
 .form-control {
   border-radius: 8px;
-  border: 2px solid #e9ecef;
+  border: 2px solid #e2e8f0;
   transition: all 0.3s ease;
 }
 
 .form-control:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  border-color: #14b8a6;
+  box-shadow: 0 0 0 0.2rem rgba(20, 184, 166, 0.25);
 }
 
 /* Loading States */
@@ -114,7 +115,7 @@ body {
 
 /* Utility Classes */
 .gradient-text {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -163,7 +164,72 @@ button:focus,
 input:focus,
 select:focus,
 textarea:focus {
-  outline: 2px solid #667eea;
+  outline: 2px solid #14b8a6;
   outline-offset: 2px;
+}
+
+/* Button Color Overrides */
+.btn-primary {
+  background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: none;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+/* Link Colors */
+a {
+  color: #14b8a6;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: #0d9488;
+}
+
+/* Toast Notification Enhancements - Ensuring High Visibility */
+.toast-success {
+  background-color: #10b981 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4) !important;
+}
+
+.toast-error {
+  background-color: #ef4444 !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4) !important;
+}
+
+.toast-info {
+  background-color: #3b82f6 !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+}
+
+.toast-warning {
+  background-color: #f59e0b !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4) !important;
+}
+
+.toast-container .ngx-toastr {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 15px 20px;
+}
+
+.toast-title {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.toast-message {
+  font-size: 0.95rem;
 }
 
