@@ -4,10 +4,11 @@ import { AccountService } from './_services/accounts.service';
 import { HomeComponent } from "./home/home.component";
 import { RouterOutlet } from '@angular/router';
 import { NgxSpinner, NgxSpinnerComponent } from 'ngx-spinner';
+import { ScrollToTopComponent } from './scroll-to-top/scroll-to-top.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavComponent, NgxSpinnerComponent],
+  imports: [RouterOutlet, NavComponent, NgxSpinnerComponent, ScrollToTopComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
