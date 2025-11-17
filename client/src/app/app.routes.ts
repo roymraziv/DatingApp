@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { LearnMoreComponent } from './learn-more/learn-more.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { ListsComponent } from './lists/lists.component';
@@ -16,6 +17,7 @@ import { adminGuard } from './_guards/admin.guard';
 
 export const routes: Routes = [
     {path:'', component: HomeComponent},
+    {path:'learn-more', component: LearnMoreComponent},
     {
         path:'',
         runGuardsAndResolvers:'always',

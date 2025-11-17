@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RegisterComponent } from "../register/register.component";
 import { HttpClient } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  imports: [RegisterComponent],
+  imports: [RegisterComponent, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

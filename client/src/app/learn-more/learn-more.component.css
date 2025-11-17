@@ -1,0 +1,315 @@
+/* Learn More Page Styles */
+.learn-more-container {
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 3rem 0;
+}
+
+.gradient-title {
+    background: linear-gradient(135deg, #0891b2 0%, #14b8a6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Section Titles */
+.section-title {
+    color: #334155;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.section-title i {
+    background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Feature Card */
+.feature-card {
+    transition: all 0.3s ease;
+    border-radius: 16px;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(20, 184, 166, 0.2) !important;
+}
+
+.lead-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #475569;
+    margin-bottom: 1.5rem;
+}
+
+/* Technology Cards */
+.tech-card {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    background: white;
+}
+
+.tech-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(251, 113, 133, 0.15) !important;
+}
+
+.tech-title {
+    color: #334155;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.tech-icon {
+    background: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.8rem;
+    margin-right: 0.5rem;
+}
+
+.tech-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.tech-list li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #64748b;
+    font-size: 1rem;
+}
+
+.tech-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #14b8a6;
+    font-weight: bold;
+}
+
+.tech-list li strong {
+    color: #334155;
+    font-weight: 600;
+}
+
+/* Feature Items */
+.feature-item {
+    padding: 2rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.feature-icon-large {
+    font-size: 4rem;
+    background: linear-gradient(135deg, #fb7185 0%, #f43f5e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.feature-item-title {
+    color: #334155;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.feature-description {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Highlights Card */
+.highlights-card {
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+}
+
+.highlight-title {
+    color: #334155;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.highlight-title i {
+    color: #14b8a6;
+}
+
+.highlight-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.highlight-list li {
+    padding: 0.4rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+.highlight-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+/* CTA Card */
+.cta-card {
+    background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+    border-radius: 16px;
+    color: white;
+    box-shadow: 0 20px 50px rgba(20, 184, 166, 0.3);
+}
+
+.cta-title {
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.cta-description {
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+.cta-demo-info {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.demo-credentials {
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.credential {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.cta-btn {
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .learn-more-container {
+        padding-top: 1rem;
+    }
+
+    .hero-section {
+        padding: 2rem 0;
+    }
+
+    .gradient-title {
+        font-size: 2.5rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .feature-icon-large {
+        font-size: 3rem;
+    }
+
+    .feature-item-title {
+        font-size: 1.1rem;
+    }
+
+    .cta-title {
+        font-size: 1.75rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .cta-btn {
+        width: 100%;
+    }
+
+    .tech-card {
+        margin-bottom: 1rem;
+    }
+
+    .credential {
+        display: inline-block;
+        margin: 0.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .gradient-title {
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .lead-text {
+        font-size: 1rem;
+    }
+
+    .feature-icon-large {
+        font-size: 2.5rem;
+    }
+}
