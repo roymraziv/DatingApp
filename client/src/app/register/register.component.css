@@ -131,9 +131,13 @@
     pointer-events: none;
 }
 
-.input-group-wrapper app-text-input,
-.input-group-wrapper app-date-picker {
-    padding-left: 2.5rem;
+/* Add padding to inputs to make room for icons */
+.input-group-wrapper ::ng-deep .form-control {
+    padding-left: 2.8rem !important;
+}
+
+.input-group-wrapper ::ng-deep input.form-control {
+    padding-left: 2.8rem !important;
 }
 
 /* Validation Errors */
