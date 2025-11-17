@@ -37,6 +37,10 @@ public class Seed
         foreach(var user in users)
         {
             user.UserName = user.UserName?.ToLower();
+
+            user.Created = DateTime.SpecifyKind(user.Created, DateTimeKind.Utc);
+            user.LastActive = DateTime.SpecifyKind(user.LastActive, DateTimeKind.Utc);
+
             await userManager.CreateAsync(user, "Pa$$w0rd");
             await userManager.AddToRoleAsync(user, "Member");
             user.Photos.First().IsApproved = true;
@@ -49,6 +53,9 @@ public class Seed
             Gender = "",
             City = "",
             Country = "",
+            DateOfBirth = DateOnly.Parse("1990-01-01"),
+            Created = DateTime.UtcNow,
+            LastActive = DateTime.UtcNow
         };
 
         await userManager.CreateAsync(admin, "Pa$$w0rd");
