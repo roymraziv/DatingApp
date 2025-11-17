@@ -1,53 +1,125 @@
-<form [formGroup]="registerForm" (ngSubmit)="register()">
-    <h2 class="text-center text-primary">Sign up</h2>
-    <hr>
-
-    <div class="mb-3">
-        <label style="margin-right: 10px;">I am a:</label>
-        <label class="form-check-label">
-            <input type="radio" class="form-check-input" value="male" formControlName="gender"> Male
-        </label>
-        <label class="form-check-label">
-            <input type="radio" class="form-check-input" value="female" formControlName="gender"> Female
-        </label>
-    </div>
-
-    <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'">
-    </app-text-input>
-
-    <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'Known As'">
-    </app-text-input>
-
-    <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'dateOfBirth'" [maxDate]="maxDate">
-    </app-date-picker>
-
-    <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'City'">
-    </app-text-input>
-
-    <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Country'">
-    </app-text-input>
-
-    <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'" [type]="'password'">
-    </app-text-input>
-
-    <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'Confirm Password'"
-        [type]="'password'">
-    </app-text-input>
-
-    @if(validationErrors){
-        <div class="alert alert-danger text-start">
-            <ul>
-                @for (error of validationErrors; track $index)
-                {
-                    <li>{{error}}</li>
-                }
-            </ul>
-
+<div class="register-container">
+    <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
+        <div class="form-header">
+            <div class="icon-circle">
+                <i class="fa fa-user-plus"></i>
+            </div>
+            <h2 class="form-title">Create Your Account</h2>
+            <p class="form-subtitle">Join thousands of singles finding love</p>
         </div>
-    }
 
-    <div class="form-group text-center">
-        <button [disabled]="!registerForm.valid" class="btn btn-success me-2" type="submit">Register</button>
-        <button class="btn btn-default me-2" (click)="cancel()" type="button">Cancel</button>
-    </div>
-</form>
+        <div class="form-content">
+            <!-- Gender Selection -->
+            <div class="gender-selection mb-4">
+                <label class="section-label">
+                    <i class="fa fa-venus-mars me-2"></i>I am a:
+                </label>
+                <div class="gender-options">
+                    <label class="gender-option">
+                        <input type="radio" value="male" formControlName="gender">
+                        <span class="gender-label">
+                            <i class="fa fa-mars"></i>
+                            <span>Male</span>
+                        </span>
+                    </label>
+                    <label class="gender-option">
+                        <input type="radio" value="female" formControlName="gender">
+                        <span class="gender-label">
+                            <i class="fa fa-venus"></i>
+                            <span>Female</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Username -->
+            <div class="input-group-wrapper">
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                </div>
+                <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'">
+                </app-text-input>
+            </div>
+
+            <!-- Known As -->
+            <div class="input-group-wrapper">
+                <div class="input-icon">
+                    <i class="fa fa-id-card"></i>
+                </div>
+                <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'Known As'">
+                </app-text-input>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="input-group-wrapper">
+                <div class="input-icon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'Date of Birth'" [maxDate]="maxDate">
+                </app-date-picker>
+            </div>
+
+            <!-- City -->
+            <div class="input-group-wrapper">
+                <div class="input-icon">
+                    <i class="fa fa-map-marker"></i>
+                </div>
+                <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'City'">
+                </app-text-input>
+            </div>
+
+            <!-- Country -->
+            <div class="input-group-wrapper">
+                <div class="input-icon">
+                    <i class="fa fa-globe"></i>
+                </div>
+                <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Country'">
+                </app-text-input>
+            </div>
+
+            <!-- Password -->
+            <div class="input-group-wrapper">
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'" [type]="'password'">
+                </app-text-input>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="input-group-wrapper">
+                <div class="input-icon">
+                    <i class="fa fa-check-circle"></i>
+                </div>
+                <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'Confirm Password'"
+                    [type]="'password'">
+                </app-text-input>
+            </div>
+
+            <!-- Validation Errors -->
+            @if(validationErrors){
+                <div class="validation-errors">
+                    <div class="error-icon">
+                        <i class="fa fa-exclamation-triangle"></i>
+                    </div>
+                    <ul class="error-list">
+                        @for (error of validationErrors; track $index)
+                        {
+                            <li>{{error}}</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button [disabled]="!registerForm.valid" class="btn btn-register" type="submit">
+                    <i class="fa fa-check me-2"></i>Create Account
+                </button>
+                <button class="btn btn-cancel" (click)="cancel()" type="button">
+                    <i class="fa fa-times me-2"></i>Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
