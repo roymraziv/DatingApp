@@ -90,17 +90,22 @@
 /* Member Action Icons */
 .member-icons {
     position: absolute;
-    bottom: -30%;
+    bottom: 0;
     left: 0;
     right: 0;
-    margin: 0 auto;
+    margin: 0;
     opacity: 0;
     z-index: 3;
-    padding: 0;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    transform: translateY(100%);
 }
 
 .card-img-wrapper:hover .member-icons {
-    bottom: 20px;
+    transform: translateY(0);
     opacity: 1;
 }
 
@@ -238,10 +243,11 @@
 .list-inline {
     margin: 0;
     padding: 0;
+    list-style: none;
 }
 
 .list-inline-item {
-    margin: 0 0.4rem;
+    margin: 0;
 }
 
 /* Loading state (optional for future) */
@@ -278,8 +284,9 @@
         font-size: 0.95rem;
     }
 
-    .list-inline-item {
-        margin: 0 0.3rem;
+    .member-icons {
+        gap: 8px;
+        padding: 10px 12px;
     }
 
     .online-badge {
