@@ -126,8 +126,7 @@
 .input-icon {
     position: absolute;
     left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 1.8125rem;
     color: #14b8a6;
     font-size: 1.1rem;
     z-index: 10;
@@ -135,11 +134,11 @@
 }
 
 /* Add padding to inputs to make room for icons */
-.input-group-wrapper ::ng-deep .form-control {
+.input-group-wrapper ::ng-deep .form-floating .form-control {
     padding-left: 2.8rem !important;
 }
 
-.input-group-wrapper ::ng-deep input.form-control {
+.input-group-wrapper ::ng-deep .form-floating input.form-control {
     padding-left: 2.8rem !important;
 }
 
