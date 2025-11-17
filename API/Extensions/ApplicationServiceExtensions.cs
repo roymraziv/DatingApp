@@ -15,15 +15,6 @@ public static class ApplicationServiceExtensions
     {
         services.AddControllers();
 
-        // SQL Server (keep for reference)
-        // services.AddDbContext<DataContext>(opt =>
-        // {
-        //     opt.UseSqlServer(config.GetConnectionString("DefaultConnection"), sqlOptions =>
-        //     {
-        //         sqlOptions.EnableRetryOnFailure();
-        //     });
-        // });
-
         // PostgreSQL (Production)
         services.AddDbContext<DataContext>(opt =>
         {
