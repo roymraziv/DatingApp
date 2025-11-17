@@ -5,6 +5,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HasRoleDirective } from '../_directives/has-role.directive';
+import { HomeStateService } from '../_services/home-state.service';
 
 @Component({
   selector: 'app-nav',
@@ -16,6 +17,7 @@ export class NavComponent {
   accountService = inject(AccountService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
+  private homeStateService = inject(HomeStateService);
   model: any = {};
 
   login(){
@@ -35,7 +37,7 @@ export class NavComponent {
 
   goHome(){
     this.router.navigateByUrl('/').then(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      this.homeStateService.resetHome();
     });
   }
 }
