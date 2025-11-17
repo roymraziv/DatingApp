@@ -227,6 +227,18 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
+.cta-btn.btn-outline-secondary {
+    background: white;
+    border: 2px solid white;
+    color: #14b8a6;
+}
+
+.cta-btn.btn-outline-secondary:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: white;
+    color: #0d9488;
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {

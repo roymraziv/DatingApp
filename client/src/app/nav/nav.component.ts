@@ -32,4 +32,10 @@ export class NavComponent {
     this.accountService.logout();
     this.router.navigateByUrl('/');
   }
+
+  goHome(){
+    this.router.navigateByUrl('/').then(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 }
