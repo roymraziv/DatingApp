@@ -117,31 +117,6 @@
     transform: translateY(-2px);
 }
 
-/* Input Groups */
-.input-group-wrapper {
-    position: relative;
-    margin-bottom: 1.5rem;
-}
-
-.input-icon {
-    position: absolute;
-    left: 1rem;
-    top: 1.8125rem;
-    color: #14b8a6;
-    font-size: 1.1rem;
-    z-index: 10;
-    pointer-events: none;
-}
-
-/* Add padding to inputs to make room for icons */
-.input-group-wrapper ::ng-deep .form-floating .form-control {
-    padding-left: 2.8rem !important;
-}
-
-.input-group-wrapper ::ng-deep .form-floating input.form-control {
-    padding-left: 2.8rem !important;
-}
-
 /* Validation Errors */
 .validation-errors {
     background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);

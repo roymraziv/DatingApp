@@ -33,68 +33,33 @@
             </div>
 
             <!-- Username -->
-            <div class="input-group-wrapper">
-                <div class="input-icon">
-                    <i class="fa fa-user"></i>
-                </div>
-                <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'">
-                </app-text-input>
-            </div>
+            <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'">
+            </app-text-input>
 
             <!-- Known As -->
-            <div class="input-group-wrapper">
-                <div class="input-icon">
-                    <i class="fa fa-id-card"></i>
-                </div>
-                <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'Known As'">
-                </app-text-input>
-            </div>
+            <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'Known As'">
+            </app-text-input>
 
             <!-- Date of Birth -->
-            <div class="input-group-wrapper">
-                <div class="input-icon">
-                    <i class="fa fa-calendar"></i>
-                </div>
-                <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'Date of Birth'" [maxDate]="maxDate">
-                </app-date-picker>
-            </div>
+            <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'Date of Birth'" [maxDate]="maxDate">
+            </app-date-picker>
 
             <!-- City -->
-            <div class="input-group-wrapper">
-                <div class="input-icon">
-                    <i class="fa fa-map-marker"></i>
-                </div>
-                <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'City'">
-                </app-text-input>
-            </div>
+            <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'City'">
+            </app-text-input>
 
             <!-- Country -->
-            <div class="input-group-wrapper">
-                <div class="input-icon">
-                    <i class="fa fa-globe"></i>
-                </div>
-                <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Country'">
-                </app-text-input>
-            </div>
+            <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Country'">
+            </app-text-input>
 
             <!-- Password -->
-            <div class="input-group-wrapper">
-                <div class="input-icon">
-                    <i class="fa fa-lock"></i>
-                </div>
-                <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'" [type]="'password'">
-                </app-text-input>
-            </div>
+            <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'" [type]="'password'">
+            </app-text-input>
 
             <!-- Confirm Password -->
-            <div class="input-group-wrapper">
-                <div class="input-icon">
-                    <i class="fa fa-check-circle"></i>
-                </div>
-                <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'Confirm Password'"
-                    [type]="'password'">
-                </app-text-input>
-            </div>
+            <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'Confirm Password'"
+                [type]="'password'">
+            </app-text-input>
 
             <!-- Validation Errors -->
             @if(validationErrors){
