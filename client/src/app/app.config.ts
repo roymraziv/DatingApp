@@ -22,6 +22,10 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideToastr({
       positionClass: 'toast-bottom-right',
+      closeButton: true,
+      preventDuplicates: true,
+      progressBar: true,
+      timeOut: 5000,
     }),
     importProvidersFrom(NgxSpinnerModule, TimeagoModule.forRoot(), ModalModule.forRoot())
   ]
