@@ -1,0 +1,145 @@
+name: Deploy to AWS Lightsail
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  SERVER_USER: ubuntu
+  SERVER_HOST: 52.201.129.184
+  DEPLOY_PATH: /home/ubuntu/dating-app
+  SERVICE_NAME: dating-app.service
+  APP_PORT: 5000
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli@19.2.3
+
+      - name: Build Angular Frontend
+        run: |
+          cd client
+          npm ci
+          ng build --configuration production
+
+      - name: Build and Publish .NET Backend
+        run: |
+          dotnet restore
+          dotnet publish API/API.csproj -c Release -o ./publish
+
+      - name: Create appsettings.Production.json
+        run: |
+          cat > ./publish/appsettings.Production.json << 'EOL'
+          {
+            "Logging": {
+              "LogLevel": {
+                "Default": "Information",
+                "Microsoft.AspNetCore": "Warning"
+              }
+            },
+            "AllowedHosts": "*",
+            "ConnectionStrings": {
+              "DefaultConnection": "Host=localhost;Port=5432;Database=datingdb;Username=datingapp;Password=${{ secrets.DB_PASSWORD }}"
+            },
+            "CloudinarySettings": {
+              "CloudName": "${{ secrets.CLOUDINARY_CLOUD_NAME }}",
+              "ApiKey": "${{ secrets.CLOUDINARY_API_KEY }}",
+              "ApiSecret": "${{ secrets.CLOUDINARY_API_SECRET }}"
+            },
+            "TokenKey": "${{ secrets.TOKEN_KEY }}"
+          }
+          EOL
+
+      - name: Create deployment package
+        run: |
+          cd publish
+          tar -czf ../datingapp-deploy.tar.gz *
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.LIGHTSAIL_SSH_KEY }}" > ~/.ssh/lightsail.pem
+          chmod 600 ~/.ssh/lightsail.pem
+          ssh-keyscan -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Transfer build to Lightsail
+        run: |
+          scp -i ~/.ssh/lightsail.pem datingapp-deploy.tar.gz ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:/tmp/
+
+      - name: Deploy application
+        run: |
+          ssh -i ~/.ssh/lightsail.pem ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'EOF'
+            set -e
+            
+            echo "=== Stopping application service ==="
+            sudo systemctl stop ${{ env.SERVICE_NAME }} || echo "Service not running"
+            
+            echo "=== Creating backup of current deployment ==="
+            if [ -d ${{ env.DEPLOY_PATH }} ]; then
+              sudo mv ${{ env.DEPLOY_PATH }} ${{ env.DEPLOY_PATH }}.backup.$(date +%Y%m%d_%H%M%S)
+              # Keep only last 3 backups
+              ls -dt ${{ env.DEPLOY_PATH }}.backup.* | tail -n +4 | xargs -r sudo rm -rf
+            fi
+            
+            echo "=== Extracting new build ==="
+            sudo mkdir -p ${{ env.DEPLOY_PATH }}
+            sudo tar -xzf /tmp/datingapp-deploy.tar.gz -C ${{ env.DEPLOY_PATH }}
+            
+            echo "=== Setting permissions ==="
+            sudo chown -R ${{ env.SERVER_USER }}:${{ env.SERVER_USER }} ${{ env.DEPLOY_PATH }}
+            sudo chmod +x ${{ env.DEPLOY_PATH }}/API
+            
+            echo "=== Starting application service ==="
+            sudo systemctl start ${{ env.SERVICE_NAME }}
+            
+            echo "=== Waiting for service to start ==="
+            sleep 5
+            
+            echo "=== Checking service status ==="
+            sudo systemctl status ${{ env.SERVICE_NAME }} --no-pager
+            
+            echo "=== Cleanup ==="
+            rm /tmp/datingapp-deploy.tar.gz
+            
+            echo "✅ Deployment completed successfully"
+          EOF
+
+      - name: Health check
+        run: |
+          echo "Waiting 10 seconds for app to fully start..."
+          sleep 10
+          
+          echo "Testing health endpoint..."
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://${{ env.SERVER_HOST }}:${{ env.APP_PORT }}/api/users || echo "000")
+          
+          if [ "$HTTP_CODE" = "401" ] || [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Health check passed (HTTP $HTTP_CODE)"
+          else
+            echo "⚠️  Warning: Unexpected HTTP code $HTTP_CODE"
+            exit 1
+          fi
+
+      - name: Deployment summary
+        if: success()
+        run: |
+          echo "🚀 Deployment successful!"
+          echo "🌐 Application URL: http://${{ env.SERVER_HOST }}:${{ env.APP_PORT }}"
+          echo "📊 Service: ${{ env.SERVICE_NAME }}"
