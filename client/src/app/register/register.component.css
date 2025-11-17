@@ -132,7 +132,6 @@
     font-size: 1.1rem;
     z-index: 10;
     pointer-events: none;
-    margin-top: 0.75rem;
 }
 
 /* Add padding to inputs to make room for icons */
