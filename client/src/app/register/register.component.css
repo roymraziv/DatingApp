@@ -1,6 +1,8 @@
 /* Registration Container */
 .register-container {
     animation: fadeIn 0.5s ease-out;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
 }
 
 /* Registration Form */
@@ -124,11 +126,13 @@
 .input-icon {
     position: absolute;
     left: 1rem;
-    top: 2.8rem;
+    top: 50%;
+    transform: translateY(-50%);
     color: #14b8a6;
     font-size: 1.1rem;
     z-index: 10;
     pointer-events: none;
+    margin-top: 0.75rem;
 }
 
 /* Add padding to inputs to make room for icons */
