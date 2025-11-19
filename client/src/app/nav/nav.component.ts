@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, HostListener, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import { AccountService } from '../_services/accounts.service';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -18,6 +18,7 @@ export class NavComponent {
   private router = inject(Router);
   private toastr = inject(ToastrService);
   private homeStateService = inject(HomeStateService);
+  private elementRef = inject(ElementRef);
   model: any = {};
   isCollapsed = true;
 
@@ -40,9 +41,24 @@ export class NavComponent {
     this.router.navigateByUrl('/').then(() => {
       this.homeStateService.resetHome();
     });
+    this.closeMenu();
   }
 
   toggleCollapse(){
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  closeMenu(){
+    this.isCollapsed = true;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const clickedInside = this.elementRef.nativeElement.contains(event.target);
+
+    // If menu is open and click is outside the navbar, close it
+    if (!this.isCollapsed && !clickedInside) {
+      this.isCollapsed = true;
+    }
   }
 }
