@@ -19,6 +19,7 @@ export class NavComponent {
   private toastr = inject(ToastrService);
   private homeStateService = inject(HomeStateService);
   model: any = {};
+  isCollapsed = true;
 
   login(){
     this.accountService.login(this.model).subscribe({
@@ -39,5 +40,9 @@ export class NavComponent {
     this.router.navigateByUrl('/').then(() => {
       this.homeStateService.resetHome();
     });
+  }
+
+  toggleCollapse(){
+    this.isCollapsed = !this.isCollapsed;
   }
 }

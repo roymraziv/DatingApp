@@ -13,3 +13,31 @@
     background-color: #fff;
     border-top: none;
 }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .img-thumbnail {
+        margin: 15px;
+        width: 95%;
+        height: auto;
+    }
+
+    .card-body {
+        padding: 0 15px;
+    }
+
+    .card-footer {
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .img-thumbnail {
+        margin: 10px;
+        width: 100%;
+    }
+
+    .card-body {
+        padding: 0 10px;
+    }
+}

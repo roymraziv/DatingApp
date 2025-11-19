@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top">
   <div class="container">
     <a class="navbar-brand" (click)="goHome()" style="cursor: pointer;">Roy's .NET Dating</a>
-    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" (click)="toggleCollapse()" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarCollapse" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button> -->
-    <!-- <div class="collapse navbar-collapse" id="navbarCollapse"> -->
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse" [class.show]="!isCollapsed">
 
     <ul class="navbar-nav me-auto mb-2 mb-md-0">
       @if (accountService.currentUser()){
@@ -50,5 +50,5 @@
     </form>
     }
   </div>
-  <!-- </div> -->
+  </div>
 </nav>
