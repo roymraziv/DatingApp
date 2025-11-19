@@ -228,4 +228,23 @@ form.d-flex .btn:hover {
     .dropdown-toggle:hover {
         background: rgba(255, 255, 255, 0.2);
     }
+
+    /* Dev/Errors link - Make it stand out on mobile */
+    .dev-link {
+        background: rgba(255, 193, 7, 0.2) !important;
+        border: 2px solid rgba(255, 193, 7, 0.5);
+        font-weight: 600;
+        margin-top: 0.5rem !important;
+    }
+
+    .dev-link:hover,
+    .dev-link.active {
+        background: rgba(255, 193, 7, 0.35) !important;
+        border-color: rgba(255, 193, 7, 0.8);
+        transform: translateX(3px);
+    }
+
+    .dev-link i {
+        color: #ffc107;
+    }
 }
