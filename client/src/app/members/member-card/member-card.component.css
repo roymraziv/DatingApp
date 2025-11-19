@@ -176,30 +176,27 @@
 
 /* Online Badge */
 .online-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    border-radius: 50%;
-    color: white;
-    font-size: 0.6rem;
-    animation: pulse-online 2s ease-in-out infinite;
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-}
-
-@keyframes pulse-online {
-    0%, 100% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-    }
-    50% {
-        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
-    }
+    display: inline-block;
+    position: relative;
+    margin-right: 0.25rem;
 }
 
 .online-badge i {
     font-size: 0.5rem;
+    color: #10b981;
+    filter: drop-shadow(0 0 2px rgba(16, 185, 129, 0.5));
+    animation: subtle-pulse 3s ease-in-out infinite;
+}
+
+@keyframes subtle-pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.85;
+        transform: scale(1.1);
+    }
 }
 
 /* Liked Icon */
@@ -289,8 +286,7 @@
         padding: 10px 12px;
     }
 
-    .online-badge {
-        width: 24px;
-        height: 24px;
+    .online-badge i {
+        font-size: 0.45rem;
     }
 }
