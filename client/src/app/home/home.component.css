@@ -198,6 +198,15 @@
     }
 }
 
+@keyframes gentlePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
     .demo-banner {
@@ -238,6 +247,7 @@
 
     .feature-icon {
         font-size: 2.5rem;
+        animation: gentlePulse 3s ease-in-out infinite;
     }
 
     .feature-title {
@@ -291,6 +301,7 @@
 
     .feature-icon {
         font-size: 2rem;
+        animation: gentlePulse 4s ease-in-out infinite;
     }
 
     .stat-number {

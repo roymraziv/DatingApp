@@ -1,19 +1,41 @@
-<h4>Internal Server Error</h4>
-@if(error){
-    <h5 class="text-danger">
-        Error: {{error.message}}
-    </h5>
-    <p class="font-weight-bold">
-        Note: If you are seeing this error then angular is not to blame!
-    </p>
-    <p>What to do next?</p>
-    <ol>
-        <li>Open chrome dev tools and check the failing network request in the network tab</li>
-        <li>Examine the URL of the failing request</li>
-        <li>Reproduce the error in postman - if you can reproduce the error then angular is not to blame</li>
-    </ol>
-    <p class="font-weight-bold">Following is the stack trace - check the first two lines, this tells you exactly which line of vode caused the problem!</p>
-    <code class="mt-5" style="background-color: whitesmoke;">
-        {{error.details}}
-    </code>
-}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white">
+            <h4 class="mb-0"><i class="bi bi-exclamation-octagon me-2"></i>Internal Server Error</h4>
+        </div>
+        <div class="card-body">
+            @if(error){
+                <div class="alert alert-danger border-0" role="alert">
+                    <h5 class="alert-heading">
+                        <i class="bi bi-x-circle me-2"></i>Error: {{error.message}}
+                    </h5>
+                </div>
+
+                <div class="alert alert-info border-0" role="alert">
+                    <p class="mb-0"><strong>Note:</strong> If you are seeing this error then Angular is not to blame!</p>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title text-primary"><i class="bi bi-lightbulb me-2"></i>What to do next?</h6>
+                        <ol class="mb-0">
+                            <li class="mb-2">Open Chrome dev tools and check the failing network request in the network tab</li>
+                            <li class="mb-2">Examine the URL of the failing request</li>
+                            <li class="mb-0">Reproduce the error in Postman - if you can reproduce the error then Angular is not to blame</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="stack-trace-section">
+                    <h6 class="mb-3">
+                        <i class="bi bi-code-slash me-2"></i>
+                        <strong>Stack Trace</strong> - Check the first two lines, this tells you exactly which line of code caused the problem!
+                    </h6>
+                    <div class="code-container">
+                        <pre class="mb-0"><code>{{error.details}}</code></pre>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

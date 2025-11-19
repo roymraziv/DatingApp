@@ -1,18 +1,60 @@
-<div>
-    <button class="btn btn-outline-primary me-3" (click)="get400Error()">Test 400 Error</button>
-    <button class="btn btn-outline-primary me-3" (click)="get401Error()">Test 401 Error</button>
-    <button class="btn btn-outline-primary me-3" (click)="get404Error()">Test 404 Error</button>
-    <button class="btn btn-outline-primary me-3" (click)="get500Error()">Test 500 Error</button>
-    <button class="btn btn-outline-primary me-3" (click)="get400ValidationError()">Test 400 Validation Error</button>
+<div class="container mt-4">
+    <!-- Developer Testing Banner -->
+    <div class="alert alert-warning border-0 shadow-sm mb-4" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-tools fs-3 me-3"></i>
+            <div>
+                <h5 class="alert-heading mb-1">Developer Testing Page</h5>
+                <p class="mb-0">This page is designed to simulate different types of HTTP errors for testing error handling and debugging purposes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Testing Buttons -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h6 class="card-subtitle mb-3 text-muted">Click any button below to trigger a test error:</h6>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6 col-md-4">
+                    <button class="btn btn-outline-primary w-100" (click)="get400Error()">
+                        <i class="bi bi-exclamation-circle me-2"></i>Test 400 Error
+                    </button>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <button class="btn btn-outline-primary w-100" (click)="get401Error()">
+                        <i class="bi bi-shield-exclamation me-2"></i>Test 401 Error
+                    </button>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <button class="btn btn-outline-primary w-100" (click)="get404Error()">
+                        <i class="bi bi-search me-2"></i>Test 404 Error
+                    </button>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <button class="btn btn-outline-primary w-100" (click)="get500Error()">
+                        <i class="bi bi-x-octagon me-2"></i>Test 500 Error
+                    </button>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4">
+                    <button class="btn btn-outline-primary w-100" (click)="get400ValidationError()">
+                        <i class="bi bi-clipboard-x me-2"></i>Test Validation Error
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     @if(validationErrors.length > 0)
     {
-        <div class="row mt-5">
-            <ul class="text-danger">
+        <div class="alert alert-danger mt-4 shadow-sm" role="alert">
+            <h6 class="alert-heading">
+                <i class="bi bi-exclamation-triangle me-2"></i>Validation Errors:
+            </h6>
+            <ul class="mb-0">
                 @for(error of validationErrors; track $index){
                     <li>{{error}}</li>
                 }
             </ul>
-        </div>  
+        </div>
     }
 </div>

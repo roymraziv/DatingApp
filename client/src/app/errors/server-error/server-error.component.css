@@ -1,0 +1,48 @@
+.code-container {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    overflow-x: auto;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.code-container pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.code-container code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.875rem;
+    color: #d63384;
+}
+
+.stack-trace-section {
+    margin-top: 1.5rem;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .code-container {
+        font-size: 0.75rem;
+        padding: 0.75rem;
+    }
+
+    .code-container code {
+        font-size: 0.75rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .card-body h6 {
+        font-size: 1rem;
+    }
+
+    .card-body ol li {
+        font-size: 0.9rem;
+    }
+}
