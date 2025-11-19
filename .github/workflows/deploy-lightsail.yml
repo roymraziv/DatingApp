@@ -6,6 +6,10 @@ on:
       - master
   workflow_dispatch:
 
+concurrency:
+  group: lightsail-deploy
+  cancel-in-progress: false
+
 env:
   SERVER_USER: ubuntu
   SERVER_HOST: 52.201.129.184
