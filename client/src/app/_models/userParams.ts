@@ -5,7 +5,7 @@ export class UserParams {
     minAge = 18;
     maxAge = 125;
     pageNumber = 1;
-    pageSize = 5;
+    pageSize = 18;
     orderBy = 'lastActive';
 
     constructor(user: User | null) {
