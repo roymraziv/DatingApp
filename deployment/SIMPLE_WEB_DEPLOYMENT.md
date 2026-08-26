@@ -147,7 +147,7 @@ Copy and paste this entire block into the SSH terminal:
 # Create database and user
 sudo -u postgres psql << 'SQLEOF'
 CREATE DATABASE datingdb;
-CREATE USER datingapp WITH ENCRYPTED PASSWORD 'DatingApp2024!Strong';
+CREATE USER datingapp WITH ENCRYPTED PASSWORD 'YOUR_POSTGRES_PASSWORD_HERE';
 GRANT ALL PRIVILEGES ON DATABASE datingdb TO datingapp;
 \c datingdb
 GRANT ALL ON SCHEMA public TO datingapp;
@@ -159,10 +159,10 @@ echo ""
 echo "✓ PostgreSQL setup complete!"
 echo "Database: datingdb"
 echo "Username: datingapp"
-echo "Password: DatingApp2024!Strong"
+echo "Password: YOUR_POSTGRES_PASSWORD_HERE"
 ```
 
-**IMPORTANT: Write down this password!** `DatingApp2024!Strong`
+**IMPORTANT: Write down this password!** `YOUR_POSTGRES_PASSWORD_HERE`
 
 (You can change this to your own password in the script above if you want)
 
@@ -198,7 +198,7 @@ This opens a text editor. Paste this (replace the placeholders):
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=datingdb;Username=datingapp;Password=DatingApp2024!Strong"
+    "DefaultConnection": "Host=localhost;Database=datingdb;Username=datingapp;Password=YOUR_POSTGRES_PASSWORD_HERE"
   },
   "CloudinarySettings": {
     "CloudName": "YOUR_CLOUDINARY_CLOUD_NAME",
@@ -210,7 +210,7 @@ This opens a text editor. Paste this (replace the placeholders):
 ```
 
 **Replace**:
-- `DatingApp2024!Strong` - your PostgreSQL password (if you changed it in Part 3)
+- `YOUR_POSTGRES_PASSWORD_HERE` - your PostgreSQL password (if you changed it in Part 3)
 - `YOUR_CLOUDINARY_CLOUD_NAME` - from Cloudinary dashboard
 - `YOUR_CLOUDINARY_API_KEY` - from Cloudinary dashboard
 - `YOUR_CLOUDINARY_API_SECRET` - from Cloudinary dashboard

@@ -74,7 +74,7 @@ sudo -u ubuntu mkdir -p /home/ubuntu/dating-app
 # Setup PostgreSQL database and user
 sudo -u postgres psql << 'SQLEOF'
 CREATE DATABASE datingdb;
-CREATE USER datingapp WITH ENCRYPTED PASSWORD 'DatingAPP4!';
+CREATE USER datingapp WITH ENCRYPTED PASSWORD 'YOUR_POSTGRES_PASSWORD_HERE';
 GRANT ALL PRIVILEGES ON DATABASE datingdb TO datingapp;
 \c datingdb
 GRANT ALL ON SCHEMA public TO datingapp;
@@ -86,12 +86,12 @@ echo ""
 echo "✓ PostgreSQL setup complete!"
 echo "Database: datingdb"
 echo "Username: datingapp"
-echo "Password: DatingAPP4!"
+echo "Password: YOUR_POSTGRES_PASSWORD_HERE"
 echo ""
 echo "IMPORTANT: Save this password!"
 ```
 
-**SAVE THIS PASSWORD**: `DatingApp2024!Strong`
+**SAVE THIS PASSWORD**: `YOUR_POSTGRES_PASSWORD_HERE`
 
 (You can change this to your own password if you want - just remember it!)
 
@@ -112,14 +112,14 @@ cat > ~/config-template.json << 'CONFIGEND'
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "DefaultConnection": "Host=localhost;Database=datingdb;Username=datingapp;Password=DatingAPP4!"
+    "DefaultConnection": "Host=localhost;Database=datingdb;Username=datingapp;Password=YOUR_POSTGRES_PASSWORD_HERE"
   },
   "CloudinarySettings": {
-    "CloudName": "dbjenrybv",
-    "ApiKey": "127261982159317",
-    "ApiSecret": "1oMm_nm4tMBXrMJdGperndsaQLw"
+    "CloudName": "YOUR_CLOUDINARY_CLOUD_NAME_HERE",
+    "ApiKey": "YOUR_CLOUDINARY_API_KEY_HERE",
+    "ApiSecret": "YOUR_CLOUDINARY_API_SECRET_HERE"
   },
-  "TokenKey": "super secret unguessable key super secret unguessable key super secret unguessable key super secret unguessable key"
+  "TokenKey": "YOUR_TOKEN_KEY_HERE"
 }
 CONFIGEND
 
@@ -133,7 +133,7 @@ nano ~/config-template.json
 ```
 
 **Replace these values**:
-- `DatingApp2024!Strong` → your PostgreSQL password (if you changed it in Step 2)
+- `YOUR_POSTGRES_PASSWORD_HERE` → your PostgreSQL password (if you changed it in Step 2)
 - `CLOUDINARY_CLOUD_NAME_HERE` → your Cloudinary cloud name
 - `CLOUDINARY_API_KEY_HERE` → your Cloudinary API key
 - `CLOUDINARY_API_SECRET_HERE` → your Cloudinary API secret
